@@ -23,19 +23,19 @@
         }
 
         private function setEmail(string $valorEmail): void{
-            $this->nome = $valorEmail;
+            $this->email = $valorEmail;
         }
 
         private function setSenha(string $valorSenha): void{
-            $this->nome = $valorSenha;
+            $this->senha = $valorSenha;
         }
 
         private function setTipo(string $valorTipo): void{
-            $this->nome = $valorTipo;
+            $this->tipo = $valorTipo;
         }
 
         private function setId(?string $valorId): void{
-            $this->nome = $valorId;
+            $this->id = $valorId;
         }
 
             

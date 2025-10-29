@@ -1,14 +1,24 @@
 <?php 
 	require_once "../src/Models/Usuario.php";
+	require_once "../src/Helpers/Utils.php";
 	//Variável que será Usada para montar mensagens de erro personalizado
 	$erro = null;
+
+
+
 
 	if($_SERVER['REQUEST_METHOD'] === 'POST'){
 		//Validação de preenchimento dos campos 
 		if(empty($_POST['nome']) || empty($_POST['email']) || empty($_POST['senha']) || empty($_POST['tipo'])){
 			$erro = "Preencha todos os campos!";
 		}else{
-			echo "CAMPOS OK";
+			$nome = Utils::sanitizar($_POST['nome']);
+			$email = Utils::sanitizar($_POST['email'],'email');
+			$tipo = Utils::sanitizar($_POST['tipo']);
+			$senha = Utils::codificaSenha($_POST['senha']);
+
+			$novoUsuario = new Usuario($nome,$email,$senha,$tipo);
+			$mensagem = Utils::mostrarVardump($novoUsuario);
 		}
 	}
 
