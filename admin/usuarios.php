@@ -1,4 +1,19 @@
 <?php 
+require_once "../src/Database/Conecta.php";
+require_once "../src/Services/UsuarioServico.php";
+require_once "../src/Helpers/Utils.php";
+
+//Inicializações 
+$erro=null;
+$usuarios = [];
+$usuarioServico = new UsuarioServico();
+
+try {
+	$usuarios = $usuarioServico->buscar();
+} catch (\Throwable $e) {
+	$erro("ERROU!".$e->getMessage());
+}
+
 require_once "../includes/cabecalho-admin.php";
 
 ?>
@@ -7,7 +22,10 @@ require_once "../includes/cabecalho-admin.php";
 <div class="row">
 	<article class="col-12 bg-white rounded shadow my-1 py-4">
 		
-		<h2 class="text-center">Usuários <span class="badge bg-dark">X</span></h2>
+		<h2 class="text-center">Usuários <span class="badge bg-dark"><?=count($usuarios)?></span></h2>
+		<?php if($erro): ?>
+			<p class="alert alert-danger text-center"><?=$erro?></p>
+		<?php endif;?>
 
 		<p class="text-center mt-5">
 			<a class="btn btn-primary" href="usuario-insere.php">
@@ -29,11 +47,11 @@ require_once "../includes/cabecalho-admin.php";
 
 				<tbody>
 
-				
+					<?php foreach($usuarios as $usuario):?>
 					<tr>
-						<td> nome do usuário... </td>
-						<td> email do usuário... </td>
-						<td> tipo do usuário... </td>
+						<td><?=$usuario['nome']?></td>
+						<td><?=$usuario['email']?></td>
+						<td><?=$usuario['tipo']?></td>
 						<td class="text-center">
 							<a class="btn btn-warning" 
 							href="usuario-atualiza.php">
@@ -46,6 +64,7 @@ require_once "../includes/cabecalho-admin.php";
 							</a>
 						</td>
 					</tr>
+					<?php endforeach?>
 				
 
 				</tbody>                
