@@ -47,4 +47,5 @@ class Conecta {
     }
 
 }
+
 Conecta::getConexao();

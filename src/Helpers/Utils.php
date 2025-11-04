@@ -24,6 +24,11 @@
             echo '</pre>';
             
         }
+
+        public static function redirecionarPara(string $caminho):void{
+            header("location:".$caminho);
+            exit;
+        }
     }
 
 ?>

@@ -38,7 +38,22 @@
             $this->id = $valorId;
         }
 
-            
+        public function getNome():string{
+            return $this->nome;
+        }
+        public function getEmail():string{
+            return $this->email;
+        }
+        public function getTipo():string{
+            return $this->tipo;
+        }
+        public function getSenha():string{
+            return $this->senha;
+        }
+        public function getId():?int{
+            return $this->id;
+        }
+
 
     }
 

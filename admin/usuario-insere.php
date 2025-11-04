@@ -1,8 +1,12 @@
 <?php 
+	require_once "../src/Database/Conecta.php";
 	require_once "../src/Models/Usuario.php";
+	require_once "../src/Services/UsuarioServico.php";
 	require_once "../src/Helpers/Utils.php";
 	//Variável que será Usada para montar mensagens de erro personalizado
 	$erro = null;
+
+	$usuarioServico = new UsuarioServico();
 
 
 
@@ -12,13 +16,23 @@
 		if(empty($_POST['nome']) || empty($_POST['email']) || empty($_POST['senha']) || empty($_POST['tipo'])){
 			$erro = "Preencha todos os campos!";
 		}else{
-			$nome = Utils::sanitizar($_POST['nome']);
-			$email = Utils::sanitizar($_POST['email'],'email');
-			$tipo = Utils::sanitizar($_POST['tipo']);
-			$senha = Utils::codificaSenha($_POST['senha']);
+			try{
+				$nome = Utils::sanitizar($_POST['nome']);
+				$email = Utils::sanitizar($_POST['email'],'email');
+				$tipo = Utils::sanitizar($_POST['tipo']);
+				$senha = Utils::codificaSenha($_POST['senha']);
 
-			$novoUsuario = new Usuario($nome,$email,$senha,$tipo);
-			$mensagem = Utils::mostrarVardump($novoUsuario);
+				$novoUsuario = new Usuario($nome,$email,$senha,$tipo);
+
+				$usuarioServico->inserir($novoUsuario);
+
+				Utils::redirecionarPara('usuarios.php');
+
+			}catch(Throwable $e){
+				
+				$erro = "Erro ao inserir usuário." . $e->getMessage();
+
+			}
 		}
 	}
 
