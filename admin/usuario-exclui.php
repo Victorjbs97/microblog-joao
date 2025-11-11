@@ -2,13 +2,20 @@
 
 	require_once "../src/Services/UsuarioServico.php";
 	require_once "../src/Database/Conecta.php";
+	require_once "../src/Helpers/Utils.php";
 	$erro = null;
 	$mensagem = null;
-	$id=$_GET['id'];
 	$usuarioServico = new UsuarioServico();
+	$dadosDoUsuario = [];
 
+	$id = Utils::sanitizar($_GET['id'],'inteiro');
+
+	if(!$id) Utils::redirecionarPara("usuarios.php");
+	//$usuarioServico['nome']
 	
 	try{
+
+		$dadosDoUsuario = $usuarioServico->buscarPorId($id);
 		$usuarioServico->excluirUsuario($id);
 		
 		$mensagem = "Usuário excluido com sucesso!";
@@ -31,6 +38,7 @@ require_once "../includes/cabecalho-admin.php";
 		<?php if($erro):?>
 			<p class="alert alert-danger text-center"><?=$erro?></p>
 		<?php endif;?>
+
 		<?php if($mensagem):?>
 			<p class="alert alert-success text-center"><?=$mensagem?></p>
 		<?php endif;?>
