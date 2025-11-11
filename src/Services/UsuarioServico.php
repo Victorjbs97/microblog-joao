@@ -60,6 +60,14 @@
 
             $consulta->execute();
         }
+
+        public function excluirUsuario(int $idUsuario):void{
+            $sql = "DELETE FROM usuarios WHERE id = :id";
+            $consulta = $this->conexao->prepare($sql);
+            $consulta->bindValue(":id",$idUsuario);
+            $consulta->execute();
+
+        }
         
     }
 
