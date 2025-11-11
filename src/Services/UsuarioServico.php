@@ -28,6 +28,38 @@
             $consulta = $this->conexao->query($sql);
             return $consulta->fetchAll();
         }
+
+        public function buscarPorId(int $valorId):?array{
+            $sql = "SELECT * FROM usuarios WHERE id = :id";
+            $consulta = $this->conexao->prepare($sql);
+            $consulta->bindValue(":id",$valorId);
+            $consulta->execute();
+
+
+            /* Sobre o ?: conhecido como "Elvis Operator" 
+            É uma condicional simplificada/abreviada em que, 
+            se a condição/expressão for válida (ou seja, tem dados),
+            ela mesma é retornada. Caso contrário, é retornado null */
+            return $consulta->fetch() ?: null; 
+        }
+
+        public function atualizar(Usuario $dadosDoUsuario):void{
+            $sql = "UPDATE usuarios SET
+            nome = :nome, 
+            email = :email,
+            tipo = :tipo,
+            senha = :senha
+            WHERE id = :id";
+        
+            $consulta = $this->conexao->prepare($sql);
+            $consulta->bindValue(":nome", $dadosDoUsuario->getNome());
+            $consulta->bindValue(":email", $dadosDoUsuario->getEmail());
+            $consulta->bindValue(":tipo", $dadosDoUsuario->getTipo());
+            $consulta->bindValue(":senha", $dadosDoUsuario->getSenha());
+            $consulta->bindValue(":id", $dadosDoUsuario->getId());
+
+            $consulta->execute();
+        }
         
     }
 

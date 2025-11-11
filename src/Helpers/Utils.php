@@ -18,6 +18,20 @@
 
         }
 
+
+        /* Ao chamar o método verificarSenha, passamos pra ele
+        a senha digitada no formulário e a senha existente no banco. */
+        public static function verificarSenha(string $senhaDigitadaNoFornulario, string $senhaArmazenadaNoBanco): string{
+             /* Usamos o password_verify para COMPARAR as duas senhas. */
+            if(password_verify($senhaDigitadaNoFornulario,$senhaArmazenadaNoBanco)){
+                // São iguais? Então retorne a mesma senha já existente no banco
+                return $senhaArmazenadaNoBanco;
+            }else{
+                 // São diferentes? Então pega a senha digitada e faça um novo hash
+                return self::codificaSenha($senhaDigitadaNoFornulario);
+            }
+        }
+
         public static function mostrarVardump(mixed $novoUsuario): void{
             echo '<pre>';
              print_r($novoUsuario);
