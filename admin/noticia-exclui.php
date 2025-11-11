@@ -1,6 +1,10 @@
 <?php
+	require_once "../src/Helpers/Utils.php";
+    require_once "../src/Services/autenticacaoServicos.php";
+	
+    AutenticacaoServicos::exigirLogin();
 
-require_once "../includes/cabecalho-admin.php";
+	require_once "../includes/cabecalho-admin.php";
 ?>
 
 

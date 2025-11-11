@@ -3,6 +3,10 @@
 	require_once "../src/Models/Usuario.php";
 	require_once "../src/Services/UsuarioServico.php";
 	require_once "../src/Helpers/Utils.php";
+
+	 require_once "../src/Services/autenticacaoServicos.php";
+
+    AutenticacaoServicos::exigirLogin();
 	//Variável que será Usada para montar mensagens de erro personalizado
 	$erro = null;
 

@@ -50,3 +50,17 @@ São as páginas contidas na pasta **admin** do projeto:
 - Usuários do tipo **editor**, podem acessar e modificar **somente** seus próprios dados e suas próprias notícias. 
 
 Ou seja, **não podem** por exemplo, administrar outros usuários e categorias.
+
+---
+
+## Sobre controle de acesso autenticação
+
+No PHP é possivel programar sistema de autenticação de páginas usando um recurso chamado de **sessão**.
+
+As sessões permitem:
+
+- Gerenciar o processo de login (entrada) e logout (saída);
+- Determinar previlégios de acessos. Exemplo:
+    - Usuário com nível ADM pode acessar tudo;
+    - Usuário com nível básico pode acessar tudo.
+- Desconectar automaticamente um usuário depois de um certo tempo.
