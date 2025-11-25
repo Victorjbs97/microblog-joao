@@ -17,20 +17,28 @@
 	if(!$id) Utils::redirecionarPara("usuarios.php");
 	//$usuarioServico['nome']
 	
-	try{
 
-		$dadosDoUsuario = $usuarioServico->buscarPorId($id);
-		$usuarioServico->excluirUsuario($id);
-		
-		$mensagem = "Usuário excluido com sucesso!";
-	}catch(Throwable $e){
-		$erro = "Erro ao excluir usuário. <br>". $e->getMessage();
+	if( $id === $_SESSION['id'] ){
+		// Neste caso, não vamos possibilitar a exclusão e vamos avisar o usuário
+		$erro = "Você não pode excluir seu próprio usuário!";
+	} else {
+		// Caso contrário, siga em frente (carregue os dados e exclua)
+		try {
+			$dadosDoUsuario = $usuarioServico->buscarPorId($id);
+
+			// Executar o método de excluir passando o id de quem será excluído
+			$usuarioServico->excluirUsuario($id);
+		} catch (Throwable $e) {
+			// Deu ruim/erro? Dispare um erro e monte uma mensagem com os detalhes
+			$erro = "Erro ao excluir usuário. <br>".$e->getMessage();
+		}
 	}
+		
 
 
 
 
-require_once "../includes/cabecalho-admin.php";
+	require_once "../includes/cabecalho-admin.php";
 ?>
 
 
