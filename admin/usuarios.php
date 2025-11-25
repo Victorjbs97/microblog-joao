@@ -1,20 +1,24 @@
 <?php 
-require_once "../src/Database/Conecta.php";
-require_once "../src/Services/UsuarioServico.php";
-require_once "../src/Helpers/Utils.php";
+	require_once "../src/Database/Conecta.php";
+	require_once "../src/Services/UsuarioServico.php";
+	require_once "../src/Helpers/Utils.php";
+	require_once "../src/Services/autenticacaoServicos.php";
+	autenticacaoServicos::exigirLogin();
+	AutenticacaoServicos::exigirAdmin();
 
-//Inicializações 
-$erro=null;
-$usuarios = [];
-$usuarioServico = new UsuarioServico();
 
-try {
-	$usuarios = $usuarioServico->buscar();
-} catch (\Throwable $e) {
-	$erro("ERROU!".$e->getMessage());
-}
+	//Inicializações 
+	$erro=null;
+	$usuarios = [];
+	$usuarioServico = new UsuarioServico();
 
-require_once "../includes/cabecalho-admin.php";
+	try {
+		$usuarios = $usuarioServico->buscar();
+	} catch (\Throwable $e) {
+		$erro("ERROU!".$e->getMessage());
+	}
+
+	require_once "../includes/cabecalho-admin.php";
 
 ?>
 

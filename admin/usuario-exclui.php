@@ -1,11 +1,12 @@
 <?php
 
-	require_once "../src/Services/UsuarioServico.php";
 	require_once "../src/Database/Conecta.php";
+	require_once "../src/Services/UsuarioServico.php";
 	require_once "../src/Helpers/Utils.php";
 	require_once "../src/Services/autenticacaoServicos.php";
 
     AutenticacaoServicos::exigirLogin();
+	AutenticacaoServicos::exigirAdmin();
 	$erro = null;
 	$mensagem = null;
 	$usuarioServico = new UsuarioServico();

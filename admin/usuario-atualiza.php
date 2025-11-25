@@ -6,6 +6,7 @@
 	require_once "../src/Services/autenticacaoServicos.php";
 
     AutenticacaoServicos::exigirLogin();
+	AutenticacaoServicos::exigirAdmin();
 	// Pegar e sanitizar o id vindo através de parâmetro da URL
 	$id = Utils::sanitizar($_GET['id'], 'inteiro');
 	
