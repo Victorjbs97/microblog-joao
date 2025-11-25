@@ -14,7 +14,7 @@
         <h2 class="display-4">Olá <?= $_SESSION['nome']?>!</h2>
 
         <p class="fs-5">Você está no <b>painel de controle e administração</b> do site Microblog e seu <b>nível de acesso</b> é
-            <span class="badge bg-dark"> <?= $_SESSION['nome']?>  </span>.
+            <span class="badge bg-dark"> <?= $_SESSION['tipo']?>  </span>.
         </p>
         <hr class="my-4">
 

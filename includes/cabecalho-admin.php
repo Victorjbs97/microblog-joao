@@ -1,5 +1,5 @@
 <?php 
-    require_once "../src/Services/AutenticacaoServico.php";
+    require_once "../src/Services/AutenticacaoServicos.php";
 
     /* Se existir/houver um parâmetro de URL chamado 'sair',
     execute o método logout. Obs.: para o parâmetro existir,
