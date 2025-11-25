@@ -19,66 +19,68 @@
 ?>
 
 
-<div class="row">
-	<article class="col-12 bg-white rounded shadow my-1 py-4">
-		
-		<h2 class="text-center">Notícias <span class="badge bg-dark"><?= count($noticias) ?></span></h2>
-		<?php if ($erro): ?>
-			<p class="alert alert-danger text-center"> <?= $erro ?> </p>
-		<?php endif; ?>
+	<div class="row">
+		<article class="col-12 bg-white rounded shadow my-1 py-4">
+			
+			<h2 class="text-center">Notícias <span class="badge bg-dark"><?= count($noticias) ?></span></h2>
+			<?php if ($erro): ?>
+				<p class="alert alert-danger text-center"> <?= $erro ?> </p>
+			<?php endif; ?>
 
-		<p class="text-center mt-5">
-			<a class="btn btn-primary" href="noticia-insere.php">
-			<i class="bi bi-plus-circle"></i>	
-			Inserir nova notícia</a>
-		</p>
-				
-		<div class="table-responsive">
-		
-			<table class="table table-hover">
-				<thead class="table-light">
-					<tr>
-                        <th>Título</th>
-                        <th>Data</th>				
-						<?php if($_SESSION['tipo'] === 'admin'): ?>
-							<th>Autor</th>
-						<?php endif; ?>
-
-						<th class="text-center" colspan="2">Operações</th>
-					</tr>
-				</thead>
-
-				<tbody>
-
-					<?php foreach($noticias as $noticia):?>
+			<p class="text-center mt-5">
+				<a class="btn btn-primary" href="noticia-insere.php">
+				<i class="bi bi-plus-circle"></i>	
+				Inserir nova notícia</a>
+			</p>
+					
+			<div class="table-responsive">
+			
+				<table class="table table-hover">
+					<thead class="table-light">
 						<tr>
-							<td> <?= $noticia['titulo'] ?> </td>
-							<td> <?= Utils::formatarData($noticia['data'])?> </td>
-
+							<th>Título</th>
+							<th>Data</th>				
 							<?php if($_SESSION['tipo'] === 'admin'): ?>
-								<td> <?= $noticia['autor'] ?> </td>
+								<th>Autor</th>
 							<?php endif; ?>
-							
-							<td class="text-center">
-								<a class="btn btn-warning" 
-								href="noticia-atualiza.php?id=<?= $noticia['id']?>">
-								<i class="bi bi-pencil"></i> Atualizar
-								</a>
-							</td>
-							<td>
-								<a class="btn btn-danger excluir" 
-								href="noticia-exclui.php?id=<?= $noticia['id']?>">
-								<i class="bi bi-trash"></i> Excluir
-								</a>
-							</td>
+
+							<th class="text-center" colspan="2">Operações</th>
 						</tr>
-					<?php endforeach; ?>
-				</tbody>                
-			</table>
+					</thead>
+
+					<tbody>
+
+						<?php foreach($noticias as $noticia):?>
+							<tr>
+								<td> <?= $noticia['titulo'] ?> </td>
+								<td> <?= Utils::formatarData($noticia['data'])?> </td>
+
+								<?php if($_SESSION['tipo'] === 'admin'): ?>
+									<td> <?= $noticia['autor'] ?> </td>
+								<?php endif; ?>
+								
+								<td class="text-center">
+									<a class="btn btn-warning" 
+									href="noticia-atualiza.php?id=<?= $noticia['id']?>">
+									<i class="bi bi-pencil"></i> Atualizar
+									</a>
+								</td>
+								<td>
+									<a class="btn btn-danger excluir" 
+									href="noticia-exclui.php?id=<?= $noticia['id']?>">
+									<i class="bi bi-trash"></i> Excluir
+									</a>
+								</td>
+							</tr>
+						<?php endforeach; ?>
+					</tbody>                
+				</table>
+		</div>
+			
+		</article>
 	</div>
-		
-	</article>
-</div>
+
+	<script src="../js/confirmar-exclusao.js"></script>
 
 
 <?php 

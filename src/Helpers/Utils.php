@@ -53,11 +53,7 @@
             - não tem arquivo
             - não existe alguma referência na área temporária
             - não for um arquivo que possa/permita envio/upload */
-            if (
-                !$arquivo ||
-                !isset($arquivo["tmp_name"]) ||
-                !is_uploaded_file($arquivo["tmp_name"])
-            ) {
+            if (!$arquivo || !isset($arquivo["tmp_name"]) || !is_uploaded_file($arquivo["tmp_name"])) {
                 throw new Exception("Nenhum arquivo válido foi enviado.");
             }
 
