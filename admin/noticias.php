@@ -10,8 +10,7 @@
 	$noticiaServico = new NoticiaServico();
 
 	try {
-		$noticias = $noticiaServico->buscar();
-		//Utils::dump($noticias);
+		$noticias = $noticiaServico->buscar($_SESSION['tipo'], $_SESSION['id']);
 	} catch (Throwable $e) {
 		$erro = "Erro ao buscar notícias. <br>".$e->getMessage();
 	}
@@ -23,7 +22,7 @@
 <div class="row">
 	<article class="col-12 bg-white rounded shadow my-1 py-4">
 		
-		<h2 class="text-center">Notícias <span class="badge bg-dark">X</span></h2>
+		<h2 class="text-center">Notícias <span class="badge bg-dark"><?= count($noticias) ?></span></h2>
 		<?php if ($erro): ?>
 			<p class="alert alert-danger text-center"> <?= $erro ?> </p>
 		<?php endif; ?>
@@ -41,7 +40,9 @@
 					<tr>
                         <th>Título</th>
                         <th>Data</th>				
-						<th>Autor</th>
+						<?php if($_SESSION['tipo'] === 'admin'): ?>
+							<th>Autor</th>
+						<?php endif; ?>
 
 						<th class="text-center" colspan="2">Operações</th>
 					</tr>
@@ -49,27 +50,29 @@
 
 				<tbody>
 
+					<?php foreach($noticias as $noticia):?>
+						<tr>
+							<td> <?= $noticia['titulo'] ?> </td>
+							<td> <?= Utils::formatarData($noticia['data'])?> </td>
 
-					<tr>
-                        <td> Título... </td>
-                        <td> Data... </td>
-						<td> Autor... </td>
-						
-
-						<td class="text-center">
-							<a class="btn btn-warning" 
-							href="noticia-atualiza.php">
-							<i class="bi bi-pencil"></i> Atualizar
-							</a>
-						</td>
-						<td>
-							<a class="btn btn-danger excluir" 
-							href="noticia-exclui.php">
-							<i class="bi bi-trash"></i> Excluir
-							</a>
-						</td>
-					</tr>
-
+							<?php if($_SESSION['tipo'] === 'admin'): ?>
+								<td> <?= $noticia['autor'] ?> </td>
+							<?php endif; ?>
+							
+							<td class="text-center">
+								<a class="btn btn-warning" 
+								href="noticia-atualiza.php?id=<?= $noticia['id']?>">
+								<i class="bi bi-pencil"></i> Atualizar
+								</a>
+							</td>
+							<td>
+								<a class="btn btn-danger excluir" 
+								href="noticia-exclui.php?id=<?= $noticia['id']?>">
+								<i class="bi bi-trash"></i> Excluir
+								</a>
+							</td>
+						</tr>
+					<?php endforeach; ?>
 				</tbody>                
 			</table>
 	</div>

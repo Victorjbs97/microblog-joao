@@ -1,8 +1,49 @@
 <?php
+	require_once "../src/Database/Conecta.php";
+	require_once "../src/Models/Noticia.php";
+	require_once "../src/Services/NoticiaServico.php";
 	require_once "../src/Helpers/Utils.php";
     require_once "../src/Services/autenticacaoServicos.php";
-	
     AutenticacaoServicos::exigirLogin();
+
+	$erro = null;
+	$noticiaServico = new NoticiaServico();
+	if($_SERVER['REQUEST_METHOD'] === 'POST'){
+
+	if( empty($_POST['titulo']) || empty($_POST['texto']) ||
+		empty($_FILES['imagem']) || empty($_POST['resumo']) ){
+		$erro = "Preencha todos os campos!";
+	} else {
+		try {
+			$titulo = Utils::sanitizar($_POST['titulo']);
+			$texto = Utils::sanitizar($_POST['texto']);
+			$resumo = Utils::sanitizar($_POST['resumo']);
+
+			// Capturando o arquivo enviado pelo input file no HTML
+			$arquivo = $_FILES['imagem'];
+			//Utils::mostrarVardump($arquivo);
+
+			// Enviamos o arquivo para o servidor (UPLOAD)
+			Utils::upload($arquivo);
+
+			// Pegando APENAS o nome do arquivo para que seja enviado ao BD
+			$imagem = $arquivo['name'];
+
+			// Criando um objeto para a nova notícia
+			$noticia = new Noticia($titulo, $texto, $resumo, $imagem, $_SESSION['id']);
+
+			// Inserindo a noticia
+			$noticiaServico->inserir($noticia);
+
+			// Redirecionando para noticias.php
+			Utils::redirecionarPara("noticias.php");
+
+
+		} catch (Throwable $e) {
+			$erro = "Erro ao inserir notícia. <br>".$e->getMessage();
+		}
+	}
+}
 	
 	require_once "../includes/cabecalho-admin.php";
 ?>
@@ -15,7 +56,14 @@
 			Inserir nova notícia
 		</h2>
 
-		<form class="mx-auto w-75" action="" method="post" id="form-inserir" name="form-inserir" autocomplete="off">
+		<?php if ($erro): ?>
+			<p class="alert alert-danger text-center"> <?= $erro ?> </p>
+		<?php endif; ?>
+
+		<!-- Obs: é obrigatório colocar o atributo enctype com
+		 o valor multipart/form-data para que o seu formulário
+		 ACEITE/PERMITA o envio de ARQUIVOS. -->
+		<form class="mx-auto w-75" action="" method="post" id="form-inserir" name="form-inserir" autocomplete="off" enctype="multipart/form-data">
 
 			<div class="mb-3">
 				<label class="form-label" for="titulo">Título:</label>
