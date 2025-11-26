@@ -7,6 +7,11 @@ class Conecta {
     private static $usuario = "root"; 
     private static $senha = ""; 
 
+/*     private static $servidor = "sql100.infinityfree.com"; 
+    private static $banco = "if0_40510146_microblog_joao";
+    private static $usuario = "if0_40510146"; 
+    private static $senha = "6ph1q7Drd2ZDP"; 
+ */
     // Variável estática para armazenar a instância da conexão PDO
     private static $conexao = null;
 

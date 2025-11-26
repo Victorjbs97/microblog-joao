@@ -8,7 +8,7 @@
                 case 'email':
                     return trim(filter_var($valor, FILTER_SANITIZE_EMAIL));
                 default:
-                    return trim(filter_var($valor,FILTER_SANITIZE_FULL_SPECIAL_CHARS));
+                    return trim(filter_var($valor,FILTER_SANITIZE_SPECIAL_CHARS));
             }
         }
 
