@@ -145,4 +145,15 @@ class NoticiaServico {
         $consulta->execute();
         return $consulta->fetch();
     }
+
+    public function buscarNoticias(string $valorProcurado):array{
+        $sql = "SELECT id,titulo,resumo, data FROM noticias 
+                WHERE titulo LIKE :valor OR resumo LIKE :valor OR texto LIKE :valor
+                ORDER BY data DESC";
+        $consulta = $this->conexao->prepare($sql);
+        //Like operador, Ao programar buscas em campos, para que a busca não seja restritiva demais em vez de usar columa = valorprocurado usamos like valor procurado, para que a busca possibilite qualquer parte de uma frase ou palavra, usamos o %.
+        $consulta->bindValue(":valor",'%'.$valorProcurado.'%');
+        $consulta->execute();
+        return $consulta->fetchAll();
+    }
 }
