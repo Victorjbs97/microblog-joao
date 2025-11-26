@@ -17,3 +17,7 @@
 }
 
 .ajusta-texto { white-space: pre-wrap; }
+
+.aumentar:hover img {
+  transform: scale(1.1); /* Aumenta a imagem em 10% */
+}
