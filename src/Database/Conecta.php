@@ -2,16 +2,16 @@
 
 class Conecta {
     // Variáveis estáticas para as credenciais
-    private static $servidor = "localhost"; 
+/*     private static $servidor = "localhost"; 
     private static $banco = "microblog_joao";
     private static $usuario = "root"; 
-    private static $senha = ""; 
+    private static $senha = "";  */
 
-/*     private static $servidor = "sql100.infinityfree.com"; 
-    private static $banco = "if0_40510146_microblog_joao";
-    private static $usuario = "if0_40510146"; 
-    private static $senha = "6ph1q7Drd2ZDP"; 
- */
+    private static $servidor = "sql211.infinityfree.com"; 
+    private static $banco = "if0_40530648_microblo_joao";
+    private static $usuario = "if0_40530648"; 
+    private static $senha = "A3z5lSB29Qfb"; 
+
     // Variável estática para armazenar a instância da conexão PDO
     private static $conexao = null;
 
